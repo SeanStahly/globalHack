@@ -4,6 +4,7 @@ package com.example.Client;
  * Created by sean on 10/22/16.
  */
 public class Client {
+
     private long id;
     private String name;
 
