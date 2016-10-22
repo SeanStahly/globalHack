@@ -12,7 +12,8 @@ class sqlimporter:
         db_conn = PyMySQL.connect()
         cursor = db_conn.cursor()
 
-        cursor.execute("DROP TABLE IF EXISTS EMPLOYEE")
+        cursor.execute("DROP TABLE IF EXISTS Client")
+        cursor.execute("DROP TABLE IF EXISTS Shelter")
 
         create_client_table = """CREATE TABLE Client (
                                  ClientId INT NOT NULL AUTO_INCREMENT,
@@ -38,7 +39,7 @@ class sqlimporter:
                                   Unknown_Occupants, CHAR(30),
                                   PRIMARY KEY(ShelterId))"""
 
-        create_incoming_clients = """CREATE TABLE Incoming_client (
+        create_incoming_clients = """CREATE TABLE IncomingClient (
                                      IncomingClientId INT NOT NULL AUTO_INCREMENT,
                                      Phone_num INT(10),
                                      Time TIME NOT NULL,
@@ -56,7 +57,7 @@ class sqlimporter:
         # INSERT DATABASE CONN INFO
         db_conn = PyMySQL.connect()
         cursor = db_conn.cursor()
-        cursor.execute("DROP TABLE IF EXISTS EMPLOYEE")
+        cursor.execute("DROP TABLE IF EXISTS IncomingClient")
         cursor.execute(create_incoming_clients)
         cursor.close()
 
