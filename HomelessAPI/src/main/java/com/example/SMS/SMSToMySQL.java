@@ -4,15 +4,16 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.StringTokenizer;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class SMSToMySQL {
 
     private final String JDBC_DRIVER = "com.mysql.jdbc.Driver",
-                         DATABASE    = "globalhack.il1.rdbs.ctl.io",
+                         DATABASE    = "GlobalHack2.il1.rdbs.ctl.io",
                          USER        = "devlopers",
                          PASS        = "Eightspaces8";
-    private String phoneNum, body, timeStamp;
+    private String phoneNum, timeStamp, body, gender, age, vetStatus, abused;
 
     public SMSToMySQL(String[] data) {
         //Phone num, body, time stamp.
@@ -26,11 +27,14 @@ public class SMSToMySQL {
     }
 
     public void parse() {
-        StringTokenizer parser = new StringTokenizer(body, "\n");
-        while(parser.hasMoreTokens())
-        {
-            System.out.println(parser.nextToken());
-        }
+        String[] values = body.split(" ");
+
+
+
+
+        age = values[0];
+        vetStatus = values[1];
+        abused = values[2];
     }
 
     private void insertIntoDatabase() {
@@ -43,18 +47,24 @@ public class SMSToMySQL {
             Connection dbConnection = DriverManager.getConnection(DATABASE, USER, PASS);
             System.out.println("Connection successful.");
 
+            String creationDate = new SimpleDateFormat("dd-MM-yy").format(new Date());
+            String fields ="Phone_num, Time, Gender, Age, Vet_status, Abused, Recommended_location, Record_creation_date";
+            String values = phoneNum + ", " + timeStamp + ", " + gender + ", " +  age + ", " + vetStatus + ", " +
+                    abused + ", NULL, " + creationDate;
+
             //Execute query.
-            String sql = "INSERT INTO Homeless()" +
-                         "VALUES()";
+            String sql= String.format("INSERT INTO Homeless(%d)" +
+                                      "VALUES(%d)", fields, values);
             System.out.println("Executing query...");
             Statement editor = dbConnection.createStatement();
             editor.executeUpdate(sql);
             System.out.println("Query executed successfully.");
+
             dbConnection.close();
         } catch(ClassNotFoundException e) {
-            e.printStackTrace();
+            System.err.println("Error in registering the driver: " + e.getMessage());
         } catch(SQLException e) {
-
+            System.err.println("Error in connection with the database: " + e.getMessage());
         }
     }
 }
