@@ -4,13 +4,14 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.StringTokenizer;
 
 public class SMSToMySQL {
 
     private final String JDBC_DRIVER = "com.mysql.jdbc.Driver",
-                         DATABASE    = "<DB URL>",
-                         USER        = "<Username>",
-                         PASS        = "<Password";
+                         DATABASE    = "globalhack.il1.rdbs.ctl.io",
+                         USER        = "devlopers",
+                         PASS        = "Eightspaces8";
     private String phoneNum, body, timeStamp;
 
     public SMSToMySQL(String[] data) {
@@ -25,7 +26,11 @@ public class SMSToMySQL {
     }
 
     public void parse() {
-
+        StringTokenizer parser = new StringTokenizer(body, "\n");
+        while(parser.hasMoreTokens())
+        {
+            System.out.println(parser.nextToken());
+        }
     }
 
     private void insertIntoDatabase() {
