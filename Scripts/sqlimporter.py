@@ -9,9 +9,10 @@ class sqlimporter:
         self.is_not_used()
 
         # INSERT DATABASE CONN INFO
-        db_conn = PyMySQL.connect()
+        db_conn = PyMySQL.connect(host='localhost', user='user', password='passwd', db='db')
         cursor = db_conn.cursor()
 
+        # Makes sure that there isn't already a table in the database
         cursor.execute("DROP TABLE IF EXISTS Client")
         cursor.execute("DROP TABLE IF EXISTS Shelter")
 
@@ -39,6 +40,16 @@ class sqlimporter:
                                   Unknown_Occupants, CHAR(30),
                                   PRIMARY KEY(ShelterId))"""
 
+        # Executes the Creation query then closes the connection
+        cursor.execute(create_shelter_table)
+        cursor.execute(create_client_table)
+        cursor.close()
+
+        # INSERT DATABASE CONN INFO
+        db_conn = PyMySQL.connect(host='localhost', user='user', password='passwd', db='db')
+        cursor = db_conn.cursor()
+        cursor.execute("DROP TABLE IF EXISTS IncomingClient")
+
         create_incoming_clients = """CREATE TABLE IncomingClient (
                                      IncomingClientId INT NOT NULL AUTO_INCREMENT,
                                      Phone_num INT(10),
@@ -50,14 +61,6 @@ class sqlimporter:
                                      Recommended_location CHAR(20),
                                      PRIMARY KEY(IncomingClientId))"""
 
-        cursor.execute(create_shelter_table)
-        cursor.execute(create_client_table)
-        cursor.close()
-
-        # INSERT DATABASE CONN INFO
-        db_conn = PyMySQL.connect()
-        cursor = db_conn.cursor()
-        cursor.execute("DROP TABLE IF EXISTS IncomingClient")
         cursor.execute(create_incoming_clients)
         cursor.close()
 
