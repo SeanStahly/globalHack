@@ -47,7 +47,7 @@ class sqlimporter:
                                      Vet_status CHAR(20),
                                      Abused CHAR(20),
                                      Recommended_location CHAR(20),
-                                     PRIMARY KEY(ClientId))"""
+                                     PRIMARY KEY(IncomingClientId))"""
 
         cursor.execute(create_shelter_table)
         cursor.execute(create_client_table)
