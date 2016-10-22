@@ -37,7 +37,7 @@ class sqlimporter:
                                   Abused BOOLEAN,
                                   Age_limit INT(5),
                                   Vet_Status BOOLEAN,
-                                  Unknown_Occupants, CHAR(30),
+                                  Unknown_Occupants CHAR(30),
                                   PRIMARY KEY(ShelterId))"""
 
         # Executes the Creation query then closes the connection
@@ -59,6 +59,7 @@ class sqlimporter:
                                      Vet_status CHAR(20),
                                      Abused CHAR(20),
                                      Recommended_location CHAR(20),
+                                     Record_creation_date DATETIME,
                                      PRIMARY KEY(IncomingClientId))"""
 
         cursor.execute(create_incoming_clients)
