@@ -31,7 +31,7 @@ class sqlimporter:
 
         create_shelter_table = """CREATE TABLE Shelter (
                                   ShelterId INT NOT NULL AUTO_INCREMENT,
-                                  Gender BOOLEAN,
+                                  Gender CHAR(20),
                                   Abused BOOLEAN,
                                   Age_limit INT(5),
                                   Vet_Status BOOLEAN,
