@@ -1,16 +1,28 @@
 package com.example;
 
+import com.example.Client.Client;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @SpringBootApplication
-public class HousingApiApplication {
+public class HousingApiApplication implements CommandLineRunner {
+
+	@Autowired
+	JdbcTemplate jdbcTemplate;
 
 	public static void main(String[] args) {
 		ApplicationContext ctx = SpringApplication.run(HousingApiApplication.class, args);
+//		SpringApplication.run(HousingApiApplication.class, args);
+
+//		jdbcTemplate.execute("");
 
 //		System.out.println("Let's inspect the beans provided by Spring Boot:");
 //
@@ -19,5 +31,33 @@ public class HousingApiApplication {
 //		for (String beanName : beanNames) {
 //			System.out.println(beanName);
 //		}
+	}
+
+	@Override
+	public void run(String... strings) throws Exception {
+
+
+		jdbcTemplate.execute("DROP TABLE clients IF EXISTS");
+		jdbcTemplate.execute("CREATE TABLE clients(id INT, first_name VARCHAR(255), last_name VARCHAR(255), " +
+				"date_of_birth DATE, nationality VARCHAR(255), vetern_status VARCHAR(255), medical_status " +
+				"VARCHAR(255), phone_number VARCHAR(255), identifying_Number INT, abused BIT, current_shelter INT )");
+
+		List<Object[]> splitUpNames = Arrays.asList("Ian Lim", "Jerry Quintero I", "Eduardo Salas", "Derek Rose").stream()
+				.map(name -> {
+					String[] arrs = {name};
+					return arrs;
+				})
+				.collect(Collectors.toList());
+
+		splitUpNames.forEach(name -> System.out.println("Creating Client: " + name[0]));
+		jdbcTemplate.batchUpdate("INSERT INTO clients(name) VALUES(?)", splitUpNames);
+		System.out.println("Querying for 'Derek'");
+
+//		jdbcTemplate.query(
+//				"SELECT id, name FROM clients WHERE name = ?", new Object[] { "Derek Rose"},
+//				(rs, rowNum) -> new Client(rs.getLong("id"), rs.getString("name"))
+//		).forEach(client -> System.out.println(client.toString()));
+
+
 	}
 }
