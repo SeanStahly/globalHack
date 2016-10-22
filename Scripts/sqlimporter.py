@@ -1,4 +1,4 @@
-import PyMySQL
+import pymysql
 
 
 class sqlimporter:
@@ -8,8 +8,9 @@ class sqlimporter:
     def run(self):
         self.is_not_used()
 
-        # INSERT DATABASE CONN INFO
-        db_conn = PyMySQL.connect(host='localhost', user='user', password='passwd', db='db')
+        # # INSERT DATABASE CONN INFO
+        db_conn = pymysql.connect(host='globalhack.il1.rdbs.ctl.io', user='devlopers', password='Eightspaces8', db='globalhack', port=49423)
+        print("Connection Successful...")
         cursor = db_conn.cursor()
 
         # Makes sure that there isn't already a table in the database
@@ -27,9 +28,9 @@ class sqlimporter:
                                  Med_status CHAR(20),
                                  Phone_num INT(10),
                                  Abuse CHAR(20),
-                                 Current_shelter CHAR(20),
+                                 Current_shelter INT(10),
                                  PRIMARY KEY(ClientId),
-                                 FOREIGN KEY (ShelterId) REFERENCES Shelter(ShelterId))"""
+                                 FOREIGN KEY (Current_shelter) REFERENCES Shelter(ShelterId))"""
 
         create_shelter_table = """CREATE TABLE Shelter (
                                   ShelterId INT NOT NULL AUTO_INCREMENT,
@@ -46,7 +47,7 @@ class sqlimporter:
         cursor.close()
 
         # INSERT DATABASE CONN INFO
-        db_conn = PyMySQL.connect(host='localhost', user='user', password='passwd', db='db')
+        db_conn = pymysql.connect(host='GlobalHack2.il1.rdbs.ctl.io', user='devlopers', password='Eightspaces8', db='globalhack', port=49428)
         cursor = db_conn.cursor()
         cursor.execute("DROP TABLE IF EXISTS IncomingClient")
 
