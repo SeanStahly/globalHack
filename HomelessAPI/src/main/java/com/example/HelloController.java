@@ -1,11 +1,8 @@
-package com.example;
+package hello;
 
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-/**
- * Created by sean on 10/22/16.
- */
 @RestController
 public class HelloController {
 
@@ -13,6 +10,5 @@ public class HelloController {
     public String index() {
         return "Greetings from Spring Boot!";
     }
-
 
 }
