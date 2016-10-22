@@ -38,7 +38,9 @@ public class HousingApiApplication implements CommandLineRunner {
 
 
 		jdbcTemplate.execute("DROP TABLE clients IF EXISTS");
-		jdbcTemplate.execute("CREATE TABLE clients(id INT, name VARCHAR(255))");
+		jdbcTemplate.execute("CREATE TABLE clients(id INT, first_name VARCHAR(255), last_name VARCHAR(255), " +
+				"date_of_birth DATE, nationality VARCHAR(255), vetern_status VARCHAR(255), medical_status " +
+				"VARCHAR(255), phone_number VARCHAR(255), identifying_Number INT, abused BIT, current_shelter INT )");
 
 		List<Object[]> splitUpNames = Arrays.asList("Ian Lim", "Jerry Quintero I", "Eduardo Salas", "Derek Rose").stream()
 				.map(name -> {
@@ -51,10 +53,10 @@ public class HousingApiApplication implements CommandLineRunner {
 		jdbcTemplate.batchUpdate("INSERT INTO clients(name) VALUES(?)", splitUpNames);
 		System.out.println("Querying for 'Derek'");
 
-		jdbcTemplate.query(
-				"SELECT id, name FROM clients WHERE name = ?", new Object[] { "Derek Rose"},
-				(rs, rowNum) -> new Client(rs.getLong("id"), rs.getString("name"))
-		).forEach(client -> System.out.println(client.toString()));
+//		jdbcTemplate.query(
+//				"SELECT id, name FROM clients WHERE name = ?", new Object[] { "Derek Rose"},
+//				(rs, rowNum) -> new Client(rs.getLong("id"), rs.getString("name"))
+//		).forEach(client -> System.out.println(client.toString()));
 
 
 	}
