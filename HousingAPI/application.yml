@@ -1,0 +1,6 @@
+server:
+  port: 9000
+datasource:
+  url: jdbc:mysql://localhost/testdb
+  username: testuser
+  password: test123
