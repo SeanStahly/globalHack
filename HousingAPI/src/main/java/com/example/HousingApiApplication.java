@@ -19,8 +19,8 @@ public class HousingApiApplication implements CommandLineRunner {
 	JdbcTemplate jdbcTemplate;
 
 	public static void main(String[] args) {
-		ApplicationContext ctx = SpringApplication.run(HousingApiApplication.class, args);
-//		SpringApplication.run(HousingApiApplication.class, args);
+//		ApplicationContext ctx = SpringApplication.run(HousingApiApplication.class, args);
+		SpringApplication.run(HousingApiApplication.class, args);
 
 //		jdbcTemplate.execute("");
 
@@ -39,8 +39,12 @@ public class HousingApiApplication implements CommandLineRunner {
 
 		jdbcTemplate.execute("DROP TABLE clients IF EXISTS");
 		jdbcTemplate.execute("CREATE TABLE clients(id INT, first_name VARCHAR(255), last_name VARCHAR(255), " +
-				"date_of_birth DATE, nationality VARCHAR(255), vetern_status VARCHAR(255), medical_status " +
-				"VARCHAR(255), phone_number VARCHAR(255), identifying_Number INT, abused BIT, current_shelter INT )");
+				"date_of_birth DATE, nationality VARCHAR(255), gender CHAR, veteran_status CHAR , medical_status " +
+				"VARCHAR(255), phone_number VARCHAR(255), identifying_number INT, abused BIT, current_shelter INT )");
+
+		jdbcTemplate.execute("DROP TABLE shelters IF EXISTS");
+		jdbcTemplate.execute("CREATE TABLE shelters(id INT, address VARCHAR(255), gender CHAR, abused BIT, " +
+				"age_limit INT, veteran_status CHAR, unknown_occupants INT )");
 
 		List<Object[]> splitUpNames = Arrays.asList("Ian Lim", "Jerry Quintero I", "Eduardo Salas", "Derek Rose").stream()
 				.map(name -> {
@@ -50,8 +54,8 @@ public class HousingApiApplication implements CommandLineRunner {
 				.collect(Collectors.toList());
 
 		splitUpNames.forEach(name -> System.out.println("Creating Client: " + name[0]));
-		jdbcTemplate.batchUpdate("INSERT INTO clients(name) VALUES(?)", splitUpNames);
-		System.out.println("Querying for 'Derek'");
+//		jdbcTemplate.batchUpdate("INSERT INTO clients(name) VALUES(?)", splitUpNames);
+//		System.out.println("Querying for 'Derek'");
 
 //		jdbcTemplate.query(
 //				"SELECT id, name FROM clients WHERE name = ?", new Object[] { "Derek Rose"},

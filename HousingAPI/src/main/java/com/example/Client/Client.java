@@ -13,7 +13,7 @@ public class Client {
     private Date dateOfBirth;
     private String nationality;
     private char gender;
-    private char veternStatus;
+    private char veteranStatus;
     private String medicalStatus;
     private String phoneNumber;
     private int identifyingNumber;
@@ -28,7 +28,7 @@ public class Client {
         this.dateOfBirth = dateOfBirth;
         this.nationality = nationality;
         this.gender = gender;
-        this.veternStatus = veternStatus;
+        this.veteranStatus = veternStatus;
         this.medicalStatus = medicalStatus;
         this.phoneNumber = phoneNumber;
         this.identifyingNumber = identifyingNumber;
@@ -89,12 +89,12 @@ public class Client {
         this.gender = gender;
     }
 
-    public char getVeternStatus() {
-        return veternStatus;
+    public char getVeteranStatus() {
+        return veteranStatus;
     }
 
-    public void setVeternStatus(char veternStatus) {
-        veternStatus = veternStatus;
+    public void setVeteranStatus(char veteranStatus) {
+        veteranStatus = veteranStatus;
     }
 
     public String getMedicalStatus() {
