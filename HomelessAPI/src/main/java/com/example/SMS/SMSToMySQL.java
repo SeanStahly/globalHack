@@ -31,13 +31,12 @@ public class SMSToMySQL {
 
 
 
-
         age = values[0];
         vetStatus = values[1];
         abused = values[2];
     }
 
-    private void insertIntoDatabase() {
+    public void insertIntoDatabase() {
         try {
             //Register the driver.
             Class.forName(JDBC_DRIVER);
